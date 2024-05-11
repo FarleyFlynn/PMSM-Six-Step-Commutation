@@ -6,7 +6,7 @@ static void MX_TIM2_Init(void);
 volatile uint16_t numberS=1000;
 uint16_t i0=0;
 
-const uint16_t bangT[1000]={
+const uint16_t tabT[1000]={
 361, 363, 365, 367, 369, 371, 373, 375, 377, 379, 381, 383, 385, 387, 389, 391, 393, 395, 397, 399, 
 401, 403, 405, 407, 409, 411, 413, 415, 417, 419, 421, 423, 425, 427, 429, 431, 433, 435, 437, 439, 
 441, 443, 444, 446, 448, 450, 452, 454, 456, 458, 460, 462, 464, 466, 467, 469, 471, 473, 475, 477, 
@@ -84,10 +84,10 @@ int main(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim2)
 {
 							
-	TIM2->CCR1 = bangT[i0];
-	TIM2->CCR2 = bangT[i0];
-	TIM2->CCR3 = bangT[i0];
-	TIM2->CCR4 = bangT[i0];
+	TIM2->CCR1 = tabT[i0];
+	TIM2->CCR2 = tabT[i0];
+	TIM2->CCR3 = tabT[i0];
+	TIM2->CCR4 = tabT[i0];
 	
 	i0++;	
 	if (i0==numberS)

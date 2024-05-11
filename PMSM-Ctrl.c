@@ -11,7 +11,7 @@ static void MX_ADC1_Init(void);
 
 volatile int sinTheta = 0;
 volatile int cosTheta = 0;
-volatile int tayGa = 0;
+volatile int throttle = 0;
 
 void ADC_Select_CH4 (void)
 {
@@ -78,12 +78,12 @@ int main(void)
 		double cosAb1 = cosAb;
 		double tanTheta = sinAb1/cosAb1;
 
-		if (tayGa >= 2000)
+		if (throttle >= 2000)
 		{
-		// 0 do - 180 do
+		// 0 deg - 180 deg
 		if (sinAb >= 0)
 		{
-			//Buoc 1
+			//Step 1
 			if ((tanTheta >= A0) && (tanTheta < A1))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -94,7 +94,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
 			
 			}
-			//Buoc 2
+			//Step 2
 			if ((tanTheta >= A1) && (tanTheta < A2))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -104,7 +104,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);				
 			}
-			//Buoc 3
+			//Step 3
 			if ((tanTheta >= A2) && (tanTheta < A3))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -114,7 +114,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);				
 			}
-			//Buoc 4
+			//Step 4
 			if ((tanTheta >= A3) || (tanTheta < A4))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -124,7 +124,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);	
 			}
-			//Buoc 5
+			//Step 5
 			if ((tanTheta >= A4)&&(tanTheta < A5))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -134,7 +134,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);	
 			}
-			//Buoc 6
+			//Step 6
 			if ((tanTheta >= A5) && (tanTheta < A0))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -145,10 +145,10 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);	
 			}
 		}
-		//180 do - 360 do
+		//180 deg - 360 deg
 		if (sinAb < 0)
 		{
-			//Buoc 1
+			//Step 1
 			if ((tanTheta >= 0) && (tanTheta < B1))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -159,7 +159,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
 			
 			}
-			//Buoc 2
+			//Step 2
 			if ((tanTheta >= B1) && (tanTheta < B2))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -169,7 +169,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);				
 			}
-			//Buoc 3
+			//Step 3
 			if ((tanTheta >= B2) && (tanTheta < B3))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -179,7 +179,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);				
 			}
-			//Buoc 4
+			//Step 4
 			if ((tanTheta >= B3) || (tanTheta < B4))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -189,7 +189,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);	
 			}
-			//Buoc 5
+			//Step 5
 			if ((tanTheta >= B4)&&(tanTheta < B5))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
@@ -199,7 +199,7 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);	
 			}
-			//Buoc 6
+			//Step 6
 			if ((tanTheta >= B5) && (tanTheta < A0))
 			{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
@@ -211,7 +211,7 @@ int main(void)
 			}
 		}
 		}
-		if (tayGa < 2000)
+		if (throttle < 2000)
 		{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
